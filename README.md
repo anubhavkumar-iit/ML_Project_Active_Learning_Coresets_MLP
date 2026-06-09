@@ -1,40 +1,40 @@
-\# Active Learning with Coresets in MLPs
+ # Active Learning with Coresets in MLPs
 
-\### Margin Sampling \& Gaussian Kernel Reweighting on CIFAR-10 / CIFAR-100
+ ### Margin Sampling  & Gaussian Kernel Reweighting on CIFAR-10 / CIFAR-100
 
 
 
-\*\*Anubhav Kumar (ZDA24B034) · Rohan Saha (ZDA24B009)\*\*  
+ * *Anubhav Kumar (ZDA24B034) · Rohan Saha (ZDA24B009) * *  
 
 Foundations of Machine Learning — IIT Madras Zanzibar · June 2026
 
 
 
-\---
+ ---
 
 
 
-\## Overview
+ ## Overview
 
 
 
-This repository contains the complete experimental codebase for our course project on \*\*compression-aware coreset selection\*\* for MLPs. We study how coreset selection strategies interact with model compression (pruning), and propose a novel \*\*compress-first ordering\*\* — selecting coresets in the post-compression embedding space rather than the full-precision space.
+This repository contains the complete experimental codebase for our course project on  * *compression-aware coreset selection * * for MLPs. We study how coreset selection strategies interact with model compression (pruning), and propose a novel  * *compress-first ordering * * — selecting coresets in the post-compression embedding space rather than the full-precision space.
 
 
 
-\### Key Finding
+ ### Key Finding
 
 
 
-> Selecting coresets \*\*after\*\* compression (compress-first) consistently outperforms selecting \*\*before\*\* compression (select-first) by \*\*+7 to +16 percentage points\*\* across all selectors, pruning levels, and datasets. Embedding geometry collapse (Pearson r > 0.86 between silhouette score and Acc@1) is the mechanistic cause.
+> Selecting coresets  * *after * * compression (compress-first) consistently outperforms selecting  * *before * * compression (select-first) by  * *+7 to +16 percentage points * * across all selectors, pruning levels, and datasets. Embedding geometry collapse (Pearson r > 0.86 between silhouette score and Acc@1) is the mechanistic cause.
 
 
 
-\---
+ ---
 
 
 
-\## Repository Structure
+ ## Repository Structure
 
 
 
@@ -46,83 +46,83 @@ active-learning-coresets-mlp/
 
 ├── notebooks/
 
-│   ├── exp1\_selector\_comparison.ipynb       # Anubhav — selector comparison at full precision
+│   ├── exp1 _selector _comparison.ipynb       # Anubhav — selector comparison at full precision
 
-│   ├── exp2\_degradation\_curves.ipynb        # Rohan — accuracy vs sparsity curves
+│   ├── exp2 _degradation _curves.ipynb        # Rohan — accuracy vs sparsity curves
 
-│   ├── exp3\_embedding\_geometry.ipynb        # Anubhav — embedding geometry under pruning
+│   ├── exp3 _embedding _geometry.ipynb        # Anubhav — embedding geometry under pruning
 
-│   ├── exp4\_order\_of\_operations.ipynb       # Rohan — compress-first vs select-first
+│   ├── exp4 _order _of _operations.ipynb       # Rohan — compress-first vs select-first
 
-│   ├── exp5\_classical\_ml.ipynb              # Anubhav — SVM/RF robustness check
+│   ├── exp5 _classical _ml.ipynb              # Anubhav — SVM/RF robustness check
 
-│   └── exp6\_sigma\_ablation.ipynb            # Rohan — Gaussian sigma ablation + 3-way
+│   └── exp6 _sigma _ablation.ipynb            # Rohan — Gaussian sigma ablation + 3-way
 
 │
 
 ├── results/
 
-│   ├── exp1\_summary.csv                     # EXP-1 aggregated results
+│   ├── exp1 _summary.csv                     # EXP-1 aggregated results
 
-│   ├── exp2\_runs.csv                        # EXP-2 all 144 raw runs
+│   ├── exp2 _runs.csv                        # EXP-2 all 144 raw runs
 
-│   ├── exp2\_aggregated.csv                  # EXP-2 mean ± std over 3 seeds
+│   ├── exp2 _aggregated.csv                  # EXP-2 mean ± std over 3 seeds
 
-│   ├── exp4\_runs.csv                        # EXP-4 all 144 raw runs
+│   ├── exp4 _runs.csv                        # EXP-4 all 144 raw runs
 
-│   ├── exp4\_aggregated.csv                  # EXP-4 mean ± std per condition
+│   ├── exp4 _aggregated.csv                  # EXP-4 mean ± std per condition
 
-│   ├── exp4\_delta.csv                       # EXP-4 compress-first advantage (B - A)
+│   ├── exp4 _delta.csv                       # EXP-4 compress-first advantage (B - A)
 
-│   ├── exp6\_runs.csv                        # EXP-6 all 228 raw runs
+│   ├── exp6 _runs.csv                        # EXP-6 all 228 raw runs
 
-│   ├── exp6\_ablation\_agg.csv                # EXP-6 sigma ablation aggregated
+│   ├── exp6 _ablation _agg.csv                # EXP-6 sigma ablation aggregated
 
-│   ├── exp6\_threeway\_agg.csv                # EXP-6 3-way comparison aggregated
+│   ├── exp6 _threeway _agg.csv                # EXP-6 3-way comparison aggregated
 
-│   └── exp6\_quantization.csv                # EXP-6 quantization results
+│   └── exp6 _quantization.csv                # EXP-6 quantization results
 
 │
 
 ├── figures/
 
-│   ├── exp1\_bar\_chart.png                   # Selector comparison bar chart
+│   ├── exp1 _bar _chart.png                   # Selector comparison bar chart
 
-│   ├── exp2\_cifar10\_degradation.png         # CIFAR-10 degradation curves
+│   ├── exp2 _cifar10 _degradation.png         # CIFAR-10 degradation curves
 
-│   ├── exp2\_cifar100\_degradation.png        # CIFAR-100 degradation curves
+│   ├── exp2 _cifar100 _degradation.png        # CIFAR-100 degradation curves
 
-│   ├── exp2\_combined.png                    # Combined 2x2 degradation figure
+│   ├── exp2 _combined.png                    # Combined 2x2 degradation figure
 
-│   ├── exp2\_training\_curves.png             # Training curves
+│   ├── exp2 _training _curves.png             # Training curves
 
-│   ├── exp3\_cifar10\_dual\_axis.png           # Silhouette + Acc@1 dual axis
+│   ├── exp3 _cifar10 _dual _axis.png           # Silhouette + Acc@1 dual axis
 
-│   ├── exp3\_cifar100\_dual\_axis.png          # CIFAR-100 dual axis
+│   ├── exp3 _cifar100 _dual _axis.png          # CIFAR-100 dual axis
 
-│   ├── exp3\_combined\_selectors.png          # All selectors silhouette
+│   ├── exp3 _combined _selectors.png          # All selectors silhouette
 
-│   ├── exp3\_heatmap.png                     # Silhouette heatmap
+│   ├── exp3 _heatmap.png                     # Silhouette heatmap
 
-│   ├── exp4\_delta\_vs\_pruning.png            # Compress-first advantage plot
+│   ├── exp4 _delta _vs _pruning.png            # Compress-first advantage plot
 
-│   ├── exp4\_condA\_vs\_condB\_bars.png         # Condition A vs B bar charts
+│   ├── exp4 _condA _vs _condB _bars.png         # Condition A vs B bar charts
 
-│   ├── exp4\_coverage\_radius.png             # Coverage radius A vs B
+│   ├── exp4 _coverage _radius.png             # Coverage radius A vs B
 
-│   ├── exp6\_sigma\_sensitivity.png           # Sigma sensitivity 2x2 grid
+│   ├── exp6 _sigma _sensitivity.png           # Sigma sensitivity 2x2 grid
 
-│   ├── exp6\_threeway\_degradation.png        # 3-way comparison curves
+│   ├── exp6 _threeway _degradation.png        # 3-way comparison curves
 
-│   ├── exp6\_gaussian\_advantage.png          # Gaussian advantage over margin
+│   ├── exp6 _gaussian _advantage.png          # Gaussian advantage over margin
 
-│   └── exp6\_coverage\_radius.png             # Coverage radius 3-way
+│   └── exp6 _coverage _radius.png             # Coverage radius 3-way
 
 │
 
 ├── reports/
 
-│   └── D2\_report.pdf                        # D2 preliminary report
+│   └── D2 _report.pdf                        # D2 preliminary report
 
 │
 
@@ -134,11 +134,11 @@ active-learning-coresets-mlp/
 
 
 
-\---
+ ---
 
 
 
-\## Experiments
+ ## Experiments
 
 
 
@@ -158,19 +158,19 @@ active-learning-coresets-mlp/
 
 | EXP-6 | Rohan | Gaussian σ ablation + 3-way comparison vs plain margin | 228 |
 
-| \*\*Total\*\* | | | \*\*624\*\* |
+|  * *Total * * | | |  * *624 * * |
 
 
 
-\---
+ ---
 
 
 
-\## Methods
+ ## Methods
 
 
 
-\### MLP Architecture
+ ### MLP Architecture
 
 ```
 
@@ -188,7 +188,7 @@ Input (3072) → FC-512-BN-ReLU-Dropout(0.3)
 
 
 
-\### Coreset Selectors
+ ### Coreset Selectors
 
 
 
@@ -200,13 +200,13 @@ Input (3072) → FC-512-BN-ReLU-Dropout(0.3)
 
 | Plain Margin | Selects most uncertain samples (smallest top-2 softmax gap) |
 
-| k-Center Greedy | Minimises maximum distance from any point to nearest selected centre \[1] |
+| k-Center Greedy | Minimises maximum distance from any point to nearest selected centre  [1] |
 
 | Gaussian Margin | Reweights margin by Gaussian kernel on embedding density (proposed) |
 
 
 
-\### Gaussian Kernel Reweighting (Novel)
+ ### Gaussian Kernel Reweighting (Novel)
 
 ```
 
@@ -220,31 +220,31 @@ where `d` = distance to nearest cluster centre in 128-dim embedding space,
 
 
 
-\### Pruning
+ ### Pruning
 
-Magnitude-based unstructured pruning via PyTorch `l1\_unstructured` at rates:
+Magnitude-based unstructured pruning via PyTorch `l1 _unstructured` at rates:
 
 0%, 10%, 30%, 50%, 70%, 90%.
 
 
 
-\### Compress-First Ordering (Novel Contribution)
+ ### Compress-First Ordering (Novel Contribution)
 
-\- \*\*Condition A (select-first):\*\* coreset on full-precision embeddings → train → prune → finetune 10 epochs
+ -  * *Condition A (select-first): * * coreset on full-precision embeddings → train → prune → finetune 10 epochs
 
-\- \*\*Condition B (compress-first):\*\* train full data → prune → coreset on compressed embeddings → finetune 20 epochs
-
-
-
-\---
+ -  * *Condition B (compress-first): * * train full data → prune → coreset on compressed embeddings → finetune 20 epochs
 
 
 
-\## Key Results
+ ---
 
 
 
-\### Compress-First Advantage (EXP-4) — CIFAR-10
+ ## Key Results
+
+
+
+ ### Compress-First Advantage (EXP-4) — CIFAR-10
 
 
 
@@ -262,7 +262,7 @@ Magnitude-based unstructured pruning via PyTorch `l1\_unstructured` at rates:
 
 
 
-\### Gaussian vs Plain Margin (EXP-6)
+ ### Gaussian vs Plain Margin (EXP-6)
 
 
 
@@ -270,13 +270,13 @@ Magnitude-based unstructured pruning via PyTorch `l1\_unstructured` at rates:
 
 |---------|-----------------|--------------|-------|
 
-| CIFAR-10 | 31.86 | 34.19 | \*\*+2.33\*\* |
+| CIFAR-10 | 31.86 | 34.19 |  * *+2.33 * * |
 
-| CIFAR-100 | 8.36 | 9.63 | \*\*+1.27\*\* |
+| CIFAR-100 | 8.36 | 9.63 |  * *+1.27 * * |
 
 
 
-\### Embedding Geometry (EXP-3) — Pearson r (silhouette ↔ Acc@1)
+ ### Embedding Geometry (EXP-3) — Pearson r (silhouette ↔ Acc@1)
 
 
 
@@ -294,15 +294,15 @@ Magnitude-based unstructured pruning via PyTorch `l1\_unstructured` at rates:
 
 
 
-\---
+ ---
 
 
 
-\## Interaction Law
+ ## Interaction Law
 
 
 
-> \*"MLP pruning above 50% sparsity collapses the penultimate-layer embedding geometry
+>  *"MLP pruning above 50% sparsity collapses the penultimate-layer embedding geometry
 
 > (Pearson r > 0.86 between silhouette score and Acc@1), invalidating coresets selected
 
@@ -310,19 +310,19 @@ Magnitude-based unstructured pruning via PyTorch `l1\_unstructured` at rates:
 
 > over select-first at 50% sparsity on CIFAR-10, with the advantage reaching +15.80pp
 
-> for Gaussian margin selection."\*
+> for Gaussian margin selection." *
 
 
 
-\---
+ ---
 
 
 
-\## Reproducibility
+ ## Reproducibility
 
 
 
-All experiments use fixed random seeds: \*\*42, 123, 456\*\*.  
+All experiments use fixed random seeds:  * *42, 123, 456 * *.  
 
 All results averaged over 3 seeds with mean ± std reported.  
 
@@ -330,21 +330,21 @@ Coreset indices saved as `.npy` files — exact coresets used in each run are re
 
 
 
-\### Running on Kaggle
+ ### Running on Kaggle
 
 
 
-All notebooks were developed and run on \*\*Kaggle T4 GPU\*\* instances.
+All notebooks were developed and run on  * *Kaggle T4 GPU * * instances.
 
 
 
-1\. Upload the notebook to Kaggle
+1 . Upload the notebook to Kaggle
 
-2\. Enable GPU accelerator (Settings → Accelerator → GPU T4)
+2 . Enable GPU accelerator (Settings → Accelerator → GPU T4)
 
-3\. Enable Internet (Settings → Internet → On)
+3 . Enable Internet (Settings → Internet → On)
 
-4\. Run all cells in order
+4 . Run all cells in order
 
 
 
@@ -352,55 +352,55 @@ Each notebook is self-contained and includes crash-safe CSV logging — if the s
 
 
 
-\---
+ ---
 
 
 
-\## Datasets
+ ## Datasets
 
 
 
-\- \*\*CIFAR-10\*\*: 50k train / 10k test / 10 classes — downloaded automatically via torchvision
+ -  * *CIFAR-10 * *: 50k train / 10k test / 10 classes — downloaded automatically via torchvision
 
-\- \*\*CIFAR-100\*\*: 50k train / 10k test / 100 classes — downloaded automatically via torchvision
+ -  * *CIFAR-100 * *: 50k train / 10k test / 100 classes — downloaded automatically via torchvision
 
-\- \*\*Coreset budget\*\*: 10% of training set = 5,000 samples for both datasets
-
-
-
-\---
+ -  * *Coreset budget * *: 10% of training set = 5,000 samples for both datasets
 
 
 
-\## References
+ ---
 
 
 
-\[1] Sener, O. \& Savarese, S. (2018). \*Active Learning for Convolutional Neural Networks: A Core-Set Approach.\* ICLR 2018.
+ ## References
 
 
 
-\[2] Geifman, Y. \& El-Yaniv, R. (2017). \*Deep Active Learning over the Long Tail.\* NeurIPS 2017.
+ [1] Sener, O.  & Savarese, S. (2018).  *Active Learning for Convolutional Neural Networks: A Core-Set Approach. * ICLR 2018.
 
 
 
-\[3] Bahri, Y. et al. (2022). \*Explaining Neural Scaling Laws.\* PNAS 2022.
+ [2] Geifman, Y.  & El-Yaniv, R. (2017).  *Deep Active Learning over the Long Tail. * NeurIPS 2017.
 
 
 
-\[4] Settles, B. (2009). \*Active Learning Literature Survey.\* UW-Madison TR 1648.
+ [3] Bahri, Y. et al. (2022).  *Explaining Neural Scaling Laws. * PNAS 2022.
 
 
 
-\[5] Krizhevsky, A. (2009). \*Learning Multiple Layers of Features from Tiny Images.\* UofT Technical Report.
+[4] Settles, B. (2009).  *Active Learning Literature Survey. * UW-Madison TR 1648.
 
 
 
-\---
+ [5] Krizhevsky, A. (2009).  *Learning Multiple Layers of Features from Tiny Images. * UofT Technical Report.
 
 
 
-\## Authors
+---
+
+
+
+ ## Authors
 
 
 
